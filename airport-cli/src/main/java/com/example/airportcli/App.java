@@ -3,8 +3,6 @@ package com.example.airportcli;
 import java.net.http.*;
 import java.net.URI;
 import java.util.Scanner;
-import java.util.List;
-import java.util.InputMismatchException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,7 +48,7 @@ public class App {
         }
     }
 
-    private static void viewAirportsInCity() {
+    public static void viewAirportsInCity() {
         System.out.println("\n--- Airports in City ---");
         listCities();
 
@@ -61,12 +59,12 @@ public class App {
         String url = API_URL + "/cities/" + cityId + "/airports";
         String response = sendGetRequest(url);
 
-        JSONArray airports = new JSONArray(response);
-
-        if (airports.isEmpty()) {
-            System.out.println("No airports found for this city.");
+        if (response.isEmpty()) {
+            System.out.println("No airports found or error occurred.");
             return;
         }
+
+        JSONArray airports = new JSONArray(response);
 
         for (int i = 0; i < airports.length(); i++) {
             JSONObject airport = airports.getJSONObject(i);
@@ -75,7 +73,7 @@ public class App {
         }
     }
 
-    private static void viewAircraftForPassenger() {
+    public static void viewAircraftForPassenger() {
         System.out.println("\n--- Aircraft Flown by Passenger ---");
         listPassengers();
 
@@ -86,12 +84,12 @@ public class App {
         String url = API_URL + "/passengers/" + passengerId + "/aircraft";
         String response = sendGetRequest(url);
 
-        JSONArray aircraftList = new JSONArray(response);
-
-        if (aircraftList.isEmpty()) {
-            System.out.println("No aircraft found for this passenger.");
+        if (response.isEmpty()) {
+            System.out.println("No aircraft found or error occurred.");
             return;
         }
+
+        JSONArray aircraftList = new JSONArray(response);
 
         for (int i = 0; i < aircraftList.length(); i++) {
             JSONObject aircraft = aircraftList.getJSONObject(i);
@@ -101,7 +99,7 @@ public class App {
         }
     }
 
-    private static void viewAirportsForAircraft() {
+    public static void viewAirportsForAircraft() {
         System.out.println("\n--- Airports Used by Aircraft ---");
         listAircraft();
 
@@ -112,12 +110,12 @@ public class App {
         String url = API_URL + "/aircraft/" + aircraftId + "/airports";
         String response = sendGetRequest(url);
 
-        JSONArray airports = new JSONArray(response);
-
-        if (airports.isEmpty()) {
-            System.out.println("No airports found for this aircraft.");
+        if (response.isEmpty()) {
+            System.out.println("No airports found or error occurred.");
             return;
         }
+
+        JSONArray airports = new JSONArray(response);
 
         for (int i = 0; i < airports.length(); i++) {
             JSONObject airport = airports.getJSONObject(i);
@@ -137,12 +135,12 @@ public class App {
         String url = API_URL + "/passengers/" + passengerId + "/airports";
         String response = sendGetRequest(url);
 
-        JSONArray airports = new JSONArray(response);
-
-        if (airports.isEmpty()) {
-            System.out.println("No airports found for this passenger.");
+        if (response.isEmpty()) {
+            System.out.println("No airports found or error occurred.");
             return;
         }
+
+        JSONArray airports = new JSONArray(response);
 
         for (int i = 0; i < airports.length(); i++) {
             JSONObject airport = airports.getJSONObject(i);
@@ -151,17 +149,16 @@ public class App {
         }
     }
 
-  private static long promptForId(String message, String listEndpoint) {
+    public static long promptForId(String message, String listEndpoint) {
+    Scanner scanner = new Scanner(System.in);  // Re-initialize scanner inside the method
+
     while (true) {
         System.out.print(message);
         String input = scanner.nextLine();
 
         try {
             long id = Long.parseLong(input);
-
-            
             return id;
-            
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid numeric ID.");
         }
@@ -169,9 +166,7 @@ public class App {
 }
 
 
-
-
-    private static String sendGetRequest(String url) {
+    public static String sendGetRequest(String url) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -190,8 +185,14 @@ public class App {
         }
     }
 
-    private static void listCities() {
+    public static void listCities() {
         String response = sendGetRequest(API_URL + "/cities");
+
+        if (response.isEmpty()) {
+            System.out.println("No cities found or error occurred.");
+            return;
+        }
+
         JSONArray cities = new JSONArray(response);
 
         for (int i = 0; i < cities.length(); i++) {
@@ -202,8 +203,14 @@ public class App {
         }
     }
 
-    private static void listPassengers() {
+    public static void listPassengers() {
         String response = sendGetRequest(API_URL + "/passengers");
+
+        if (response.isEmpty()) {
+            System.out.println("No passengers found or error occurred.");
+            return;
+        }
+
         JSONArray passengers = new JSONArray(response);
 
         for (int i = 0; i < passengers.length(); i++) {
@@ -214,8 +221,14 @@ public class App {
         }
     }
 
-    private static void listAircraft() {
+    public static void listAircraft() {
         String response = sendGetRequest(API_URL + "/aircraft");
+
+        if (response.isEmpty()) {
+            System.out.println("No aircraft found or error occurred.");
+            return;
+        }
+
         JSONArray aircraftList = new JSONArray(response);
 
         for (int i = 0; i < aircraftList.length(); i++) {

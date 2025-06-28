@@ -11,6 +11,7 @@ target
 
 # VS Code settings
 /.vscode/
+.vscode/
 
 # OS-specific files
 .DS_Store

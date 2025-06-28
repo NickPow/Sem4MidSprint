@@ -1,3 +1,9 @@
+/**
+ *  Project: Airport-CLI
+ *  Author: NickPow SD12
+ *  Date: June 27, 2025
+ */
+
 package com.example.airportcli;
 
 import java.net.http.*;
@@ -6,6 +12,9 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * CLI Application to interact with the Airport API and answer the four required questions.
+ */
 public class App {
 
     private static final String API_URL = "http://localhost:8080";
@@ -48,6 +57,9 @@ public class App {
         }
     }
 
+    /**
+     * Displays airports for a selected city.
+     */
     public static void viewAirportsInCity() {
         System.out.println("\n--- Airports in City ---");
         listCities();
@@ -73,6 +85,9 @@ public class App {
         }
     }
 
+    /**
+     * Displays aircraft flown by a selected passenger.
+     */
     public static void viewAircraftForPassenger() {
         System.out.println("\n--- Aircraft Flown by Passenger ---");
         listPassengers();
@@ -99,6 +114,9 @@ public class App {
         }
     }
 
+    /**
+     * Displays airports used by a selected aircraft.
+     */
     public static void viewAirportsForAircraft() {
         System.out.println("\n--- Airports Used by Aircraft ---");
         listAircraft();
@@ -124,7 +142,10 @@ public class App {
         }
     }
 
-    private static void viewAirportsUsedByPassenger() {
+    /**
+     * Displays airports used by a selected passenger.
+     */
+    public static void viewAirportsUsedByPassenger() {
         System.out.println("\n--- Airports Used by Passenger ---");
         listPassengers();
 
@@ -149,23 +170,25 @@ public class App {
         }
     }
 
+    /**
+     * Prompts user for numeric ID with input validation.
+     */
     public static long promptForId(String message, String listEndpoint) {
-    Scanner scanner = new Scanner(System.in);  // Re-initialize scanner inside the method
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine();
 
-    while (true) {
-        System.out.print(message);
-        String input = scanner.nextLine();
-
-        try {
-            long id = Long.parseLong(input);
-            return id;
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid numeric ID.");
+            try {
+                return Long.parseLong(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid numeric ID.");
+            }
         }
     }
-}
 
-
+    /**
+     * Sends a GET request and returns response body, or empty string on failure.
+     */
     public static String sendGetRequest(String url) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -185,6 +208,9 @@ public class App {
         }
     }
 
+    /**
+     * Lists all cities from the API.
+     */
     public static void listCities() {
         String response = sendGetRequest(API_URL + "/cities");
 
@@ -203,6 +229,9 @@ public class App {
         }
     }
 
+    /**
+     * Lists all passengers from the API.
+     */
     public static void listPassengers() {
         String response = sendGetRequest(API_URL + "/passengers");
 
@@ -221,6 +250,9 @@ public class App {
         }
     }
 
+    /**
+     * Lists all aircraft from the API.
+     */
     public static void listAircraft() {
         String response = sendGetRequest(API_URL + "/aircraft");
 

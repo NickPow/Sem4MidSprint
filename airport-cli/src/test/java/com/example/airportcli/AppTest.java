@@ -8,8 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
 
+/**
+ * Unit tests.
+ * Tests include API response parsing, input validation, and output logic.
+ */
 public class AppTest {
 
+    /**
+     * Tests parsing and printing of cities from API response.
+     */
     @Test
     public void testListCities_ParsesAndPrintsCorrectly() {
         String dummyResponse = "[{\"id\":1,\"name\":\"CityA\",\"province\":\"ProvA\",\"population\":1000}]";
@@ -21,6 +28,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests parsing and printing of passengers from API response.
+     */
     @Test
     public void testListPassengers_ParsesAndPrintsCorrectly() {
         String dummyResponse = "[{\"id\":1,\"firstName\":\"John\",\"lastName\":\"Doe\",\"phoneNumber\":\"1234567890\"}]";
@@ -32,6 +42,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests parsing and printing of aircraft from API response.
+     */
     @Test
     public void testListAircraft_ParsesAndPrintsCorrectly() {
         String dummyResponse = "[{\"id\":1,\"type\":\"Jet\",\"airlineName\":\"TestAir\",\"numberOfPassengers\":150}]";
@@ -43,6 +56,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests promptForId with valid numeric input.
+     */
     @Test
     public void testPromptForId_ValidInput() {
         String simulatedInput = "5\n";
@@ -56,6 +72,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests promptForId with invalid followed by valid input.
+     */
     @Test
     public void testPromptForId_InvalidThenValidInput() {
         String simulatedInput = "abc\n7\n";
@@ -69,6 +88,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests viewing airports for a city with no airports returned.
+     */
     @Test
     public void testViewAirportsInCity_NoAirports() {
         String cityListResponse = "[{\"id\":1,\"name\":\"CityA\",\"province\":\"ProvA\",\"population\":1000}]";
@@ -85,6 +107,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests viewing aircraft for a passenger when none exist.
+     */
     @Test
     public void testViewAircraftForPassenger_NoAircraft() {
         String passengerListResponse = "[{\"id\":1,\"firstName\":\"John\",\"lastName\":\"Doe\",\"phoneNumber\":\"1234567890\"}]";
@@ -101,6 +126,9 @@ public class AppTest {
         }
     }
 
+    /**
+     * Tests viewing airports for an aircraft with multiple airports.
+     */
     @Test
     public void testViewAirportsForAircraft_MultipleAirports() {
         String aircraftListResponse = "[{\"id\":1,\"type\":\"Jet\",\"airlineName\":\"TestAir\",\"numberOfPassengers\":150}]";
